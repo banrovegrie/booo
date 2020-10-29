@@ -1,0 +1,4 @@
+python-dotnet
+numpy
+tensorflow==1.15
+discord.py
