@@ -30,6 +30,19 @@ async def test_function(ctx):
 pic_ext = ['.jpg', '.png', '.jpeg']
 
 
+async def classify_and_detect(message, addr):
+    val = classify(addr)
+    detection_result = detect(addr)
+    channel = message.channel
+
+    if val > 0.85:
+            await message.delete()
+            result = "According to that image, you are horny. I have deleted that image for Zeeshan's protection."
+            await channel.send(result)
+    
+    await channel.send(f"Val: `{val}`")
+    await channel.send(f"```\n{detection_result}\n```")  
+
 @bot.listen('on_message')
 async def message_function(message):
     if message.author.bot:
@@ -41,30 +54,34 @@ async def message_function(message):
             for ext in pic_ext:
                 if attachment.url.endswith(ext):
                     save_img(attachment.url, ext)
-                    val = classify(f"./images/test_image{ext}")
-                    channel = message.channel
+                    await classify_and_detect(message, f"./images/test_image{ext}")
+                    # val = classify(f"./images/test_image{ext}")
+                    # channel = message.channel
                     
-                    if val > 0.93:
-                        await message.delete()
-                        result = "According to that image, you are horny. I have deleted that image for Zeeshan's protection."
-                        await channel.send(result)
+                    # if val > 0.85:
+                    #     await message.delete()
+                    #     result = "According to that image, you are horny. I have deleted that image for Zeeshan's protection."
+                    #     await channel.send(result)
                     
-                    await channel.send(f"Val: `{val}`")
-                    #await message.channel.send(message.content)
+                    # await channel.send(f"Val: `{val}`")
+                    # #await message.channel.send(message.content)
     else:
         for ext in pic_ext:
             if message.content.endswith(ext) and message.content.startswith('https://'):
                 print(message.content)
                 save_img(message.content, ext)
-                val = classify(f"./images/test_image{ext}")
-                channel = message.channel
+                await classify_and_detect(message, f"./images/test_image{ext}")
+                # val = classify(f"./images/test_image{ext}")
+                # detection_result = detect(f"./images/test_image{ext}")
+                # channel = message.channel
 
-                if val > 0.93:
-                        await message.delete()
-                        result = "According to that image, you are horny. I have deleted that image for Zeeshan's protection."
-                        await channel.send(result)
+                # if val > 0.85:
+                #         await message.delete()
+                #         result = "According to that image, you are horny. I have deleted that image for Zeeshan's protection."
+                #         await channel.send(result)
                 
-                await channel.send(f"Val: `{val}`")
+                # await channel.send(f"Val: `{val}`")
+                # await channel.send(f"```\n{detection_result}\n```")    
                 #await message.channel.send(message.content)
 
 bot.run(TOKEN)
