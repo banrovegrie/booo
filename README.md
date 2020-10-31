@@ -1,2 +1,4 @@
 # booo
-A bot that to detect nsfw images and spookify them
+A bot that to detect nsfw images. 
+Using nudenet python library to classify the images.
+
