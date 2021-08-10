@@ -8,4 +8,4 @@ Instructions for usage (to be used with python3 only):
 - Create a file called `.env` and insert the line `DISCORD_TOKEN=<your discord bot's token here>` into it.
 - run the main script `python3 main.py`
 
-
+**Note**: If you have a Zeeshan in your server, this will be a very good free investment.
