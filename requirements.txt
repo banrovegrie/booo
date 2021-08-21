@@ -1,4 +1,4 @@
 python-dotnet
 numpy
-tensorflow==1.15
+tensorflow>=2.1.4
 discord.py
